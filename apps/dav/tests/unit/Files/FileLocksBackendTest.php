@@ -73,8 +73,8 @@ class FileLocksBackendTest extends TestCase {
 					$lock->setToken('123-456-7890');
 					$lock->setScope(ILock::LOCK_SCOPE_EXCLUSIVE);
 					$lock->setDepth(0);
-					$lock->setGlobalFileName('locked-file.txt');
-					$lock->setGlobalUserId('alice');
+					$lock->setAbsoluteDavPath('locked-file.txt');
+					$lock->setDavUserId('alice');
 					$lock->setOwner('Alice Wonder');
 					$lock->setTimeout(1234);
 					$lock->setCreatedAt(164419200);

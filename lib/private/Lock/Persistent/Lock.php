@@ -27,8 +27,6 @@ use OCP\Lock\Persistent\ILock;
  *
  * @method string getTokenHash()
  * @method string getPath()
- * @method string getUriV1()
- * @method string getUriV2()
  * @method string getOwnerAccountId()
  *
  * @method setFileId(int $fileId)
@@ -63,9 +61,9 @@ class Lock extends Entity implements ILock {
 	/** @var string - joined with oc_filecache */
 	protected $path;
 	/** @var string - computed value */
-	protected $globalUserId;
+	protected $davUserId;
 	/** @var string - computed value */
-	protected $globalFileName;
+	protected $absoluteDavPath;
 
 	public function __construct() {
 		$this->addType('fileId', 'integer');
@@ -152,5 +150,25 @@ class Lock extends Entity implements ILock {
 	 */
 	public function getDepth(): int {
 		return parent::getDepth();
+	}
+
+	/**
+	 * Absolute path to the file/folder on webdav
+	 *
+	 * @return string
+	 * @since 11.0.0
+	 */
+	public function getAbsoluteDavPath(): string {
+		return parent::getAbsoluteDavPath();
+	}
+
+	/**
+	 * User id on webdav URI
+	 *
+	 * @return string
+	 * @since 11.0.0
+	 */
+	public function getDavUserId(): string {
+		return parent::getDavUserId();
 	}
 }

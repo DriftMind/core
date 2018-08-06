@@ -463,8 +463,8 @@ class SharedStorage extends \OC\Files\Storage\Wrapper\Jail implements ISharedSto
 		return \array_map(function (ILock $lock) {
 			// TODO: if path starts with rootpath
 			$mountedPath = \substr($lock->getPath(), \strlen($this->rootPath)+1);
-			$lock->setGlobalUserId($this->user);
-			$lock->setGlobalFileName($this->getMountPoint() . '/' .$mountedPath);
+			$lock->setDavUserId($this->user);
+			$lock->setAbsoluteDavPath($this->getMountPoint() . '/' .$mountedPath);
 			return $lock;
 		}, $locks);
 	}

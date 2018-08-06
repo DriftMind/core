@@ -88,4 +88,18 @@ interface ILock {
 	 * @since 11.0.0
 	 */
 	public function getDepth() : int;
+
+	/**
+	 * Absolute path to the file/folder on webdav
+	 * @return string
+	 * @since 11.0.0
+	 */
+	public function getAbsoluteDavPath() : string;
+
+	/**
+	 * User id on webdav URI
+	 * @return string
+	 * @since 11.0.0
+	 */
+	public function getDavUserId() : string;
 }

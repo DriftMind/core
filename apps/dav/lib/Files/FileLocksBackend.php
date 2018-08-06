@@ -75,12 +75,12 @@ class FileLocksBackend implements BackendInterface {
 		$davLocks = [];
 		foreach ($locks as $lock) {
 			$lockInfo = new Locks\LockInfo();
-			$fileName = $lock->getGlobalFileName();
+			$fileName = $lock->getAbsoluteDavPath();
 
 			if ($this->useV1) {
 				$lockInfo->uri = $fileName;
 			} else {
-				$uid = $lock->getGlobalUserId();
+				$uid = $lock->getDavUserId();
 				$lockInfo->uri = "files/$uid/$fileName";
 			}
 			$lockInfo->token = $lock->getToken();
