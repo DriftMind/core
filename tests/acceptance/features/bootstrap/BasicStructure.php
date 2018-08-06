@@ -206,6 +206,13 @@ trait BasicStructure {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getOcPath() {
+		return (string) $this->ocPath;
+	}
+
+	/**
 	 * returns the base URL (which is without a slash at the end)
 	 *
 	 * @return string

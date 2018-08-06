@@ -19,6 +19,8 @@
  *
  */
 
+use TestHelpers\SetupHelper;
+
 require __DIR__ . '/../../../../lib/composer/autoload.php';
 
 /**
@@ -45,6 +47,7 @@ trait CommandLine {
 	 * @param bool $escaping
 	 *
 	 * @return int exit code
+	 * @throws Exception if ocPath has not been set yet or the testing app is not enabled
 	 */
 	public function runOcc($args = [], $escaping = true) {
 		if ($escaping === true) {
@@ -55,19 +58,11 @@ trait CommandLine {
 			);
 		}
 		$args[] = '--no-ansi';
-		$args = \implode(' ', $args);
+		$return = SetupHelper::runOcc($args);
 
-		$descriptor = [
-			0 => ['pipe', 'r'],
-			1 => ['pipe', 'w'],
-			2 => ['pipe', 'w'],
-		];
-		$process = \proc_open(
-			'php console.php ' . $args, $descriptor, $pipes, $this->ocPath
-		);
-		$this->lastStdOut = \stream_get_contents($pipes[1]);
-		$this->lastStdErr = \stream_get_contents($pipes[2]);
-		$this->lastCode = \proc_close($process);
+		$this->lastStdOut = $return['stdOut'];
+		$this->lastStdErr = $return['stdErr'];
+		$this->lastCode = $return['code'];
 		return $this->lastCode;
 	}
 
