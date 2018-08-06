@@ -325,4 +325,21 @@ trait CommandLine {
 		$davPath = \rtrim($davPath, '/') . $this->lastTransferPath;
 		$this->usingDavPath($davPath);
 	}
+
+	/**
+	 * This will run before EVERY scenario.
+	 * It will setup anything needed by methods in this trait.
+	 *
+	 * @BeforeScenario
+	 *
+	 * @return void
+	 */
+	public function beforeCommandLineScenario() {
+		SetupHelper::init(
+			$this->getAdminUsername(),
+			$this->getAdminPassword(),
+			$this->getBaseUrl(),
+			$this->getOcPath()
+		);
+	}
 }
