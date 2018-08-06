@@ -44,25 +44,16 @@ trait CommandLine {
 	 * Invokes an OCC command
 	 *
 	 * @param array $args of the occ command
-	 * @param bool $escaping
 	 *
 	 * @return int exit code
 	 * @throws Exception if ocPath has not been set yet or the testing app is not enabled
 	 */
-	public function runOcc($args = [], $escaping = true) {
-		if ($escaping === true) {
-			$args = \array_map(
-				function ($arg) {
-					return \escapeshellarg($arg);
-				}, $args
-			);
-		}
+	public function runOcc($args = []) {
 		$args[] = '--no-ansi';
 		$return = SetupHelper::runOcc($args);
-
 		$this->lastStdOut = $return['stdOut'];
 		$this->lastStdErr = $return['stdErr'];
-		$this->lastCode = $return['code'];
+		$this->lastCode = (int) $return['code'];
 		return $this->lastCode;
 	}
 
