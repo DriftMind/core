@@ -264,9 +264,16 @@ trait Provisioning {
 			} else {
 				$email = null;
 			}
+
+			if (isset($row['password'])) {
+				$password = $row['password'];
+			} else {
+				$password = $this->getPasswordForUser($row ['username']);
+			}
+
 			$this->createUser(
 				$row ['username'],
-				$row ['password'],
+				$password,
 				$displayName,
 				$email,
 				($doNotInitialize === "")
